@@ -118,4 +118,5 @@ function eliminarEstudiante(id) {
             })
             .catch(err => console.error('Error al eliminar:', err));
     }
+    
 }
