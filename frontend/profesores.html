@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Profesores</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background-color: #f4f4f4; }
+    </style>
+</head>
+<body>
+
+    <h2>Listado de Profesores</h2>
+
+    <!-- Tabla HTML donde se renderizarán los datos -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Especialidad</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <!-- Elemento objetivo que seleccionará JavaScript -->
+        <tbody id="tabla-profesores"></tbody>
+    </table>
+
+    <script>
+        // URL del endpoint expuesto por Django REST Framework
+        const API_URL = 'http://127.0.0.1:8000/api/profesores/';
+
+        // Función asíncrona para obtener y pintar los profesores
+        async function obtenerProfesores() {
+            try {
+                // Paso 1: Realizar la petición GET mediante fetch
+                const respuesta = await fetch(API_URL);
+
+                // Verificar si la respuesta fue exitosa (status 200-299)
+                if (!respuesta.ok) {
+                    throw new Error(`Error HTTP: ${respuesta.status}`);
+                }
+
+                // Paso 2: Convertir la respuesta recibida a un objeto JSON
+                const profesores = await respuesta.json();
+
+                // Paso 3: Referenciar el tbody de la tabla
+                const tbody = document.getElementById('tabla-profesores');
+                tbody.innerHTML = ''; // Limpiar el contenido previo
+
+                // Paso 4: Recorrer el arreglo de profesores y generar las filas <tr>
+                profesores.forEach(profesor => {
+                    const fila = document.createElement('tr');
+                    
+                    fila.innerHTML = `
+                        <td>${profesor.id}</td>
+                        <td>${profesor.nombre}</td>
+                        <td>${profesor.especialidad}</td>
+                        <td>${profesor.email}</td>
+                    `;
+                    
+                    // Agregar la fila construida al tbody
+                    tbody.appendChild(fila);
+                });
+
+            } catch (error) {
+                // Manejo de errores en caso de fallo en la red o en la petición
+                console.error('Error al consultar los profesores:', error);
+            }
+        }
+
+        // Ejecutar la función automáticamente al cargar el documento
+        document.addEventListener('DOMContentLoaded', obtenerProfesores);
+    </script>
+
+</body>
+</html>
