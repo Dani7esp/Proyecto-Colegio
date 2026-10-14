@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Cursos - Colegio</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sistema Escolar - Módulo Cursos</h1>
+            <nav>
+                <a href="profesores.html">Profesores</a>
+                <a href="cursos.html" class="active">Cursos</a>
+                <a href="estudiantes.html">Estudiantes</a>
+            </nav>
+        </header>
+
+        <!-- Formulario -->
+        <section class="card-form">
+            <h2 id="form-titulo">Agregar Nuevo Curso</h2>
+            <form id="form-curso">
+                <input type="hidden" id="curso-id">
+                <div class="form-group">
+                    <label for="nombre">Nombre del Curso:</label>
+                    <input type="text" id="nombre" required >
+                </div>
+                <div class="form-group">
+                    <label for="codigo">Código:</label>
+                    <input type="text" id="codigo" required >
+                </div>
+                <div class="form-group">
+                    <label for="profesor">Profesor Asignado:</label>
+                    <select id="profesor" required>
+                        <option value="">Cargando profesores...</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" id="btn-guardar">Guardar Curso</button>
+                <button type="button" class="btn btn-cancel" id="btn-cancelar" style="display:none;" onclick="cancelarEdicion()">Cancelar</button>
+            </form>
+        </section>
+
+        <!-- Tabla -->
+        <section class="table-container">
+            <h2>Listado de Cursos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Código</th>
+                        <th>ID Profesor</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-cursos">
+                    <!-- Filas dinámicas -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script src="js/cursos.js"></script>
+    
+</body>
+</html>
