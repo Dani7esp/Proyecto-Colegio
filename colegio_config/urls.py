@@ -36,4 +36,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Incluimos los endpoints generados por el router bajo el prefijo 'api/'
     path('api/', include(router.urls)),
-]
+]#
